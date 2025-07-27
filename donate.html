@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate to Saksham Foundation</title>
+    <!-- Favicon -->
+    <link rel="icon" href="https://placehold.co/32x32/3b82f6/ffffff?text=SF" type="image/x-icon">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light blue-gray background */
+            color: #334155; /* Dark slate gray text */
+        }
+        .section-heading {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60%;
+            height: 4px;
+            background-color: #3b82f6; /* Blue underline */
+            border-radius: 9999px;
+        }
+
+        /* Loader Styles */
+        #loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top of everything */
+            transition: opacity 0.5s ease-out; /* Smooth fade out */
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3b82f6; /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden-loader {
+            opacity: 0;
+            pointer-events: none; /* Make it unclickable when hidden */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Loader Overlay -->
+    <div id="loader-overlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 text-2xl font-bold text-blue-600 rounded-md p-2 hover:bg-blue-50 transition duration-300">
+                <!-- Logo Image -->
+                <img src="images/saksham_logo.png" alt="Saksham Foundation Logo" class="h-12 w-12 object-cover">
+                <span id="site-title">Saksham Foundation</span>
+            </a>
+            <!-- Language Selector -->
+            <div class="relative inline-block text-left ml-4">
+                <select id="language-selector" class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-blue-500">
+                    <option value="en">English</option>
+                    <option value="mr">मराठी</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Donate Section -->
+    <section id="donate-section" class="py-16 bg-blue-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-10 section-heading mx-auto" id="donate-heading">Make a Donation</h2>
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <p class="text-lg text-gray-700 mb-6 text-center" id="donate-intro-text">
+                    Your generous contribution helps us provide education, healthcare, and a brighter future for children in need. Every donation, big or small, makes a significant impact.
+                </p>
+
+                <h3 class="text-2xl font-semibold mb-4 text-center" id="online-payment-heading">Online Payment Options</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow-sm">
+                        <img src="https://placehold.co/60x60/ffffff/000000?text=GPay" alt="Google Pay Logo" class="h-16 w-16 mb-2 object-contain">
+                        <p class="font-medium text-gray-800 mb-2" id="gpay-text">Google Pay</p>
+                        <p class="text-sm text-gray-600 text-center" id="gpay-instructions">Scan QR or use UPI ID: <span class="font-bold text-blue-600">sakshamfoundation@upi</span></p>
+                        <button class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300" onclick="alert('Please use your GPay app to scan the QR code or send to the UPI ID provided.')" id="gpay-button">
+                            Donate with GPay
+                        </button>
+                    </div>
+                    <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow-sm">
+                        <img src="https://placehold.co/60x60/ffffff/000000?text=PhonePe" alt="PhonePe Logo" class="h-16 w-16 mb-2 object-contain">
+                        <p class="font-medium text-gray-800 mb-2" id="phonepe-text">PhonePe</p>
+                        <p class="text-sm text-gray-600 text-center" id="phonepe-instructions">Scan QR or use UPI ID: <span class="font-bold text-blue-600">sakshamfoundation@phonepe</span></p>
+                        <button class="mt-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full transition duration-300" onclick="alert('Please use your PhonePe app to scan the QR code or send to the UPI ID provided.')" id="phonepe-button">
+                            Donate with PhonePe
+                        </button>
+                    </div>
+                    <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg shadow-sm">
+                        <img src="https://placehold.co/60x60/ffffff/000000?text=PayPal" alt="PayPal Logo" class="h-16 w-16 mb-2 object-contain">
+                        <p class="font-medium text-gray-800 mb-2" id="paypal-text">PayPal</p>
+                        <p class="text-sm text-gray-600 text-center" id="paypal-instructions">Donate securely via PayPal.</p>
+                        <a href="https://www.paypal.com/donate/?hosted_button_id=YOUR_PAYPAL_BUTTON_ID" target="_blank" class="mt-4 bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full transition duration-300" id="paypal-button">
+                            Donate with PayPal
+                        </a>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 pt-8 mt-8">
+                    <h3 class="text-2xl font-semibold mb-4 text-center" id="contact-form-heading">Send us a message about your donation</h3>
+                    <!-- Formspree integration: Using the provided endpoint -->
+                    <form action="https://formspree.io/f/mzzvrlzb" method="POST">
+                        <div class="mb-5">
+                            <label for="donation-amount" class="block text-gray-700 text-sm font-bold mb-2" id="donate-amount-label">Donation Amount (INR):</label>
+                            <input type="number" id="donation-amount" name="amount" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g., 500" min="100" required>
+                        </div>
+                        <div class="mb-5">
+                            <label for="donor-name" class="block text-gray-700 text-sm font-bold mb-2" id="donor-name-label">Your Name (Optional):</label>
+                            <input type="text" id="donor-name" name="donor_name" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Anonymous">
+                        </div>
+                        <div class="mb-5">
+                            <label for="donor-email" class="block text-gray-700 text-sm font-bold mb-2" id="donor-email-label">Your Email (Optional):</label>
+                            <input type="email" id="donor-email" name="donor_email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="your@example.com">
+                        </div>
+                        <div class="mb-5">
+                            <label for="donation-message" class="block text-gray-700 text-sm font-bold mb-2" id="donation-message-label">Message (Optional):</label>
+                            <textarea id="donation-message" name="message" rows="4" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Any specific instructions or message..."></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105" id="donate-submit-button">
+                                Submit Donation Info
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p id="footer-text">&copy; 2025 Saksham Foundation. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300" id="footer-privacy">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300" id="footer-terms">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations object for the donate page
+        const translations = {
+            en: {
+                siteTitle: "Saksham Foundation",
+                donateHeading: "Make a Donation",
+                donateIntroText: "Your generous contribution helps us provide education, healthcare, and a brighter future for children in need. Every donation, big or small, makes a significant impact.",
+                onlinePaymentHeading: "Online Payment Options",
+                gpayText: "Google Pay",
+                gpayInstructions: "Scan QR or use UPI ID: <span class=\"font-bold text-blue-600\">sakshamfoundation@upi</span>",
+                gpayButton: "Donate with GPay",
+                phonepeText: "PhonePe",
+                phonepeInstructions: "Scan QR or use UPI ID: <span class=\"font-bold text-blue-600\">sakshamfoundation@phonepe</span>",
+                phonepeButton: "Donate with PhonePe",
+                paypalText: "PayPal",
+                paypalInstructions: "Donate securely via PayPal.",
+                paypalButton: "Donate with PayPal",
+                contactFormHeading: "Send us a message about your donation",
+                donateAmountLabel: "Donation Amount (INR):",
+                donorNameLabel: "Your Name (Optional):",
+                donorEmailLabel: "Your Email (Optional):",
+                donationMessageLabel: "Message (Optional):",
+                donateSubmitButton: "Submit Donation Info",
+                footerText: "&copy; 2025 Saksham Foundation. All rights reserved.",
+                footerPrivacy: "Privacy Policy",
+                footerTerms: "Terms of Service"
+            },
+            mr: {
+                siteTitle: "सक्षम फाउंडेशन",
+                donateHeading: "देणगी द्या",
+                donateIntroText: "तुमचे उदार योगदान आम्हाला गरजू मुलांसाठी शिक्षण, आरोग्यसेवा आणि उज्ज्वल भविष्य प्रदान करण्यास मदत करते. प्रत्येक देणगी, मोठी असो वा लहान, महत्त्वपूर्ण प्रभाव पाडते.",
+                onlinePaymentHeading: "ऑनलाइन पेमेंट पर्याय",
+                gpayText: "गुगल पे",
+                gpayInstructions: "QR स्कॅन करा किंवा UPI आयडी वापरा: <span class=\"font-bold text-blue-600\">sakshamfoundation@upi</span>",
+                gpayButton: "गुगल पे द्वारे देणगी द्या",
+                phonepeText: "फोनपे",
+                phonepeInstructions: "QR स्कॅन करा किंवा UPI आयडी वापरा: <span class=\"font-bold text-blue-600\">sakshamfoundation@phonepe</span>",
+                phonepeButton: "फोनपे द्वारे देणगी द्या",
+                paypalText: "पेपल",
+                paypalInstructions: "पेपल द्वारे सुरक्षितपणे देणगी द्या.",
+                paypalButton: "पेपल द्वारे देणगी द्या",
+                contactFormHeading: "तुमच्या देणगीबद्दल आम्हाला संदेश पाठवा",
+                donateAmountLabel: "देणगीची रक्कम (INR):",
+                donorNameLabel: "तुमचे नाव (ऐच्छिक):",
+                donorEmailLabel: "तुमचा ईमेल (ऐच्छिक):",
+                donationMessageLabel: "संदेश (ऐच्छिक):",
+                donateSubmitButton: "देणगी माहिती सबमिट करा",
+                footerText: "&copy; 2025 सक्षम फाउंडेशन. सर्व हक्क राखीव.",
+                footerPrivacy: "गोपनीयता धोरण",
+                footerTerms: "सेवा अटी"
+            },
+            hi: {
+                siteTitle: "सक्षम फाउंडेशन",
+                donateHeading: "दान करें",
+                donateIntroText: "आपका उदार योगदान हमें जरूरतमंद बच्चों के लिए शिक्षा, स्वास्थ्य सेवा और उज्ज्वल भविष्य प्रदान करने में मदद करता है। हर दान, बड़ा या छोटा, एक महत्वपूर्ण प्रभाव डालता है।",
+                onlinePaymentHeading: "ऑनलाइन भुगतान विकल्प",
+                gpayText: "गूगल पे",
+                gpayInstructions: "QR स्कैन करें या UPI ID का उपयोग करें: <span class=\"font-bold text-blue-600\">sakshamfoundation@upi</span>",
+                gpayButton: "गूगल पे से दान करें",
+                phonepeText: "फोनपे",
+                phonepeInstructions: "QR स्कैन करें या UPI ID का उपयोग करें: <span class=\"font-bold text-blue-600\">sakshamfoundation@phonepe</span>",
+                phonepeButton: "फोनपे से दान करें",
+                paypalText: "पेपाल",
+                paypalInstructions: "पेपाल के माध्यम से सुरक्षित रूप से दान करें।",
+                paypalButton: "पेपाल से दान करें",
+                contactFormHeading: "अपने दान के बारे में हमें एक संदेश भेजें",
+                donateAmountLabel: "दान की राशि (INR):",
+                donorNameLabel: "आपका नाम (वैकल्पिक):",
+                donorEmailLabel: "आपका ईमेल (वैकल्पिक):",
+                donationMessageLabel: "संदेश (वैकल्पिक):",
+                donateSubmitButton: "दान जानकारी सबमिट करें",
+                footerText: "&copy; 2025 सक्षम फाउंडेशन। सर्वाधिकार सुरक्षित।",
+                footerPrivacy: "गोपनीयता नीति",
+                footerTerms: "सेवा की शर्तें"
+            }
+        };
+
+        // Function to update all text content based on selected language
+        function updateContent(lang) {
+            document.getElementById('site-title').textContent = translations[lang].siteTitle;
+            document.getElementById('donate-heading').textContent = translations[lang].donateHeading;
+            document.getElementById('donate-intro-text').textContent = translations[lang].donateIntroText;
+            document.getElementById('online-payment-heading').textContent = translations[lang].onlinePaymentHeading;
+            document.getElementById('gpay-text').textContent = translations[lang].gpayText;
+            document.getElementById('gpay-instructions').innerHTML = translations[lang].gpayInstructions; // Use innerHTML for span
+            document.getElementById('gpay-button').textContent = translations[lang].gpayButton;
+            document.getElementById('phonepe-text').textContent = translations[lang].phonepeText;
+            document.getElementById('phonepe-instructions').innerHTML = translations[lang].phonepeInstructions; // Use innerHTML for span
+            document.getElementById('phonepe-button').textContent = translations[lang].phonepeButton;
+            document.getElementById('paypal-text').textContent = translations[lang].paypalText;
+            document.getElementById('paypal-instructions').textContent = translations[lang].paypalInstructions;
+            document.getElementById('paypal-button').textContent = translations[lang].paypalButton;
+            document.getElementById('contact-form-heading').textContent = translations[lang].contactFormHeading;
+            document.getElementById('donate-amount-label').textContent = translations[lang].donateAmountLabel;
+            document.getElementById('donor-name-label').textContent = translations[lang].donorNameLabel;
+            document.getElementById('donor-email-label').textContent = translations[lang].donorEmailLabel;
+            document.getElementById('donation-message-label').textContent = translations[lang].donationMessageLabel;
+            document.getElementById('donate-submit-button').textContent = translations[lang].donateSubmitButton;
+            document.getElementById('footer-text').innerHTML = translations[lang].footerText;
+            document.getElementById('footer-privacy').textContent = translations[lang].footerPrivacy;
+            document.getElementById('footer-terms').textContent = translations[lang].footerTerms;
+
+            // Update placeholder texts
+            document.querySelector('#donate-section input[name="amount"]').placeholder = (lang === 'en' ? 'e.g., 500' : (lang === 'mr' ? 'उदा. ५००' : (lang === 'hi' ? 'उदा. ५००' : 'e.g., 500')));
+            document.querySelector('#donate-section input[name="donor_name"]').placeholder = (lang === 'en' ? 'Anonymous' : (lang === 'mr' ? 'अनामिक' : (lang === 'hi' ? 'गुमनाम' : 'Anonymous')));
+            document.querySelector('#donate-section input[name="donor_email"]').placeholder = (lang === 'en' ? 'your@example.com' : (lang === 'mr' ? 'तुमचा ईमेल' : (lang === 'hi' ? 'आपका ईमेल' : 'your@example.com')));
+            document.querySelector('#donate-section textarea[name="message"]').placeholder = (lang === 'en' ? 'Any specific instructions or message...' : (lang === 'mr' ? 'कोणत्याही विशिष्ट सूचना किंवा संदेश...' : (lang === 'hi' ? 'कोई विशेष निर्देश या संदेश...' : 'Any specific instructions or message...')));
+        }
+
+        // Language selector event listener
+        const langSelector = document.getElementById('language-selector');
+        langSelector.addEventListener('change', (event) => {
+            const selectedLang = event.target.value;
+            localStorage.setItem('lang', selectedLang); // Store preference
+            updateContent(selectedLang);
+        });
+
+        // Set initial language based on localStorage or default to English
+        const initialLang = localStorage.getItem('lang') || 'en';
+        langSelector.value = initialLang;
+        updateContent(initialLang); // Call updateContent on page load
+
+        // Hide loader when the page is fully loaded
+        window.addEventListener('load', () => {
+            const loaderOverlay = document.getElementById('loader-overlay');
+            if (loaderOverlay) {
+                loaderOverlay.classList.add('hidden-loader');
+                // Optional: Remove the loader from DOM after transition
+                loaderOverlay.addEventListener('transitionend', () => {
+                    loaderOverlay.style.display = 'none';
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
