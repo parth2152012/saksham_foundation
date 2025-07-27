@@ -60,12 +60,14 @@
         }
 
         .mySlides {
-            display: none;
-            width: 100%;
-            height: 100%; /* Make slides fill the hero section height */
-            position: absolute; /* For fading animation */
+            position: absolute; /* Stack slides on top of each other */
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0; /* Start hidden */
+            transition: opacity 2.5s ease-in-out; /* Smooth transition for opacity */
+            z-index: 1; /* Default z-index */
         }
 
         .mySlides img {
@@ -73,6 +75,11 @@
             height: 100%; /* Make images fill the slide container */
             object-fit: cover; /* Cover the area, cropping if necessary */
             border-radius: 0; /* No rounded corners for full-width hero */
+        }
+
+        .mySlides.active-slide { /* New class for the currently visible slide */
+            opacity: 1;
+            z-index: 2; /* Bring active slide to front */
         }
 
         /* Overlay for text and gradient */
@@ -93,107 +100,6 @@
             max-width: 800px;
             margin: auto;
         }
-
-        /* Slide Caption styles - REMOVED */
-        /* .slide-caption {
-            position: absolute;
-            bottom: 80px;
-            left: 0;
-            right: 0;
-            margin-left: auto;
-            margin-right: auto;
-            width: 80%;
-            max-width: 600px;
-            background-color: rgba(0,0,0,0.6);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            font-size: 1.25rem;
-            font-style: italic;
-            z-index: 25;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            opacity: 0;
-            text-align: center;
-        } */
-
-        /* Responsive adjustments for slide caption - REMOVED */
-        /* @media (max-width: 768px) {
-            .slide-caption {
-                font-size: 0.9rem;
-                padding: 0.75rem 1rem;
-                bottom: 60px;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .hero-content p {
-                font-size: 1rem;
-            }
-            .hero-section {
-                height: 450px;
-            }
-        } */
-
-
-        /* The dots/bullets/indicators */
-        .dot-container {
-            position: absolute;
-            bottom: 20px; /* Position dots at the bottom of the hero */
-            width: 100%;
-            text-align: center;
-            z-index: 30; /* Above content */
-        }
-        .dot {
-            cursor: pointer;
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-        }
-
-        .active, .dot:hover {
-            background-color: #717171;
-        }
-
-        /* Fading animation for images */
-        .fade {
-            animation-name: fade;
-            animation-duration: 2.5s; /* Increased from 1.5s to 2.5s for a slower fade */
-        }
-
-        @keyframes fade {
-            from {opacity: .4}
-            to {opacity: 1}
-        }
-
-        /* Animation for main hero text (h1, p) */
-        .hero-text-fade-in {
-            animation-name: heroTextFadeIn;
-            animation-duration: 1.5s; /* Duration for text fade-in */
-            animation-fill-mode: forwards; /* Keep the end state of the animation */
-            opacity: 0; /* Start invisible */
-        }
-
-        @keyframes heroTextFadeIn {
-            from {opacity: 0; transform: translateY(20px);} /* Start slightly below and invisible */
-            to {opacity: 1; transform: translateY(0);} /* End visible and in place */
-        }
-
-        /* New animation for quotes (slide-up effect) - REMOVED */
-        /* .quote-slide-up {
-            animation-name: quoteSlideUp;
-            animation-duration: 1.5s;
-            animation-fill-mode: forwards;
-            opacity: 0;
-        }
-
-        @keyframes quoteSlideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        } */
 
         /* Loader Styles */
         #loader-overlay {
@@ -228,6 +134,42 @@
             opacity: 0;
             pointer-events: none; /* Make it unclickable when hidden */
         }
+
+        /* The dots/bullets/indicators */
+        .dot-container {
+            position: absolute;
+            bottom: 20px; /* Position dots at the bottom of the hero */
+            width: 100%;
+            text-align: center;
+            z-index: 30; /* Above content */
+        }
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: #717171;
+        }
+
+        /* Animation for main hero text (h1, p) */
+        .hero-text-fade-in {
+            animation-name: heroTextFadeIn;
+            animation-duration: 1.5s; /* Duration for text fade-in */
+            animation-fill-mode: forwards; /* Keep the end state of the animation */
+            opacity: 0; /* Start invisible */
+        }
+
+        @keyframes heroTextFadeIn {
+            from {opacity: 0; transform: translateY(20px);} /* Start slightly below and invisible */
+            to {opacity: 1; transform: translateY(0);} /* End visible and in place */
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -240,14 +182,19 @@
     <!-- Header/Navigation -->
     <header class="bg-white shadow-md py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-blue-600 rounded-md p-2 hover:bg-blue-50 transition duration-300" id="site-title">Saksham Foundation</a>
+            <a href="#" class="flex items-center space-x-2 text-2xl font-bold text-blue-600 rounded-md p-2 hover:bg-blue-50 transition duration-300" id="site-title-link">
+                <!-- Logo Image -->
+                <img src="images/saksham_logo.png" alt="Saksham Foundation Logo" class="h-12 w-12 object-cover">
+                <span id="site-title">Saksham Foundation</span>
+            </a>
             <!-- Desktop Navigation -->
             <nav id="desktop-nav" class="hidden md:flex space-x-6 items-center">
                 <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" id="nav-about">About Us</a>
                 <a href="#mission" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" id="nav-mission">Our Mission</a>
                 <a href="#help" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" id="nav-help">How You Can Help</a>
+                <a href="donate.html" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" id="nav-donate-link">Donate</a>
                 <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium transition duration-300" id="nav-contact">Contact Us</a>
-                <a href="#help" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded-full shadow-md transition duration-300 transform hover:scale-105 ml-4" id="nav-donate">
+                <a href="donate.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-5 rounded-full shadow-md transition duration-300 transform hover:scale-105 ml-4" id="nav-donate">
                     Donate Now
                 </a>
                 <!-- Language Selector for Desktop -->
@@ -272,8 +219,9 @@
             <a href="#about" class="block text-gray-700 hover:text-blue-600 font-medium py-2 px-4 rounded-md transition duration-300" id="mobile-nav-about">About Us</a>
             <a href="#mission" class="block text-gray-700 hover:text-blue-600 font-medium py-2 px-4 rounded-md transition duration-300" id="mobile-nav-mission">Our Mission</a>
             <a href="#help" class="block text-gray-700 hover:text-blue-600 font-medium py-2 px-4 rounded-md transition duration-300" id="mobile-nav-help">How You Can Help</a>
+            <a href="donate.html" class="block text-gray-700 hover:text-blue-600 font-medium py-2 px-4 rounded-md transition duration-300" id="mobile-nav-donate-link">Donate</a>
             <a href="#contact" class="block text-gray-700 hover:text-blue-600 font-medium py-2 px-4 rounded-md transition duration-300" id="mobile-nav-contact">Contact Us</a>
-            <a href="#help" class="block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300 transform hover:scale-105 mt-4 text-center" id="mobile-nav-donate">
+            <a href="donate.html" class="block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300 transform hover:scale-105 mt-4 text-center" id="mobile-nav-donate">
                 Donate Now
             </a>
             <!-- Language Selector for Mobile -->
@@ -295,19 +243,16 @@
         <!-- Slideshow Container -->
         <div class="slideshow-container">
             <!-- Full-width images with quotes -->
-            <div class="mySlides fade">
+            <div class="mySlides">
                 <img src="images/1.jpg" alt="Children learning in a classroom">
-                <!-- <div class="slide-caption" id="quote-1">"Every child deserves a chance to learn and grow."</div> -->
             </div>
 
-            <div class="mySlides fade">
+            <div class="mySlides">
                 <img src="images/2.jpg" alt="Children playing outdoors happily">
-                <!-- <div class="slide-caption" id="quote-2">"Joyful moments, brighter futures. Supporting play and happiness."</div> -->
             </div>
 
-            <div class="mySlides fade">
+            <div class="mySlides">
                 <img src="images/3.jpg" alt="Children receiving healthcare assistance">
-                <!-- <div class="slide-caption" id="quote-3">"Healthy children, healthy communities. Investing in their well-being."</div> -->
             </div>
         </div>
 
@@ -400,9 +345,9 @@
                     <p class="text-gray-700 mb-4" id="help-donate-text">
                         Your financial contribution directly supports our programs and reaches children in need.
                     </p>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300" id="help-donate-button">
+                    <a href="donate.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-300" id="help-donate-button">
                         Donate
-                    </button>
+                    </a>
                 </div>
                 <div class="bg-blue-50 p-6 rounded-lg shadow-md flex flex-col items-center text-center transform hover:translate-y-2 transition duration-300">
                     <div class="text-blue-600 mb-4">
@@ -432,23 +377,25 @@
         </div>
     </section>
 
+
     <!-- Contact Us Section -->
     <section id="contact" class="py-16 bg-blue-100">
         <div class="container mx-auto px-4">
             <h2 class="text-4xl font-bold text-center mb-10 section-heading mx-auto" id="contact-heading">Contact Us</h2>
             <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-                <form>
+                <!-- Formspree integration: Using the provided endpoint -->
+                <form action="https://formspree.io/f/mzzvrlzb" method="POST">
                     <div class="mb-5">
                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2" id="contact-name-label">Name:</label>
-                        <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your Name">
+                        <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your Name" required>
                     </div>
                     <div class="mb-5">
                         <label for="email" class="block text-gray-700 text-sm font-bold mb-2" id="contact-email-label">Email:</label>
-                        <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="your@example.com">
+                        <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="your@example.com" required>
                     </div>
                     <div class="mb-5">
                         <label for="message" class="block text-gray-700 text-sm font-bold mb-2" id="contact-message-label">Message:</label>
-                        <textarea id="message" name="message" rows="6" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your message..."></textarea>
+                        <textarea id="message" name="message" rows="6" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Your message..." required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105" id="contact-send-button">
@@ -482,6 +429,7 @@
                 navAbout: "About Us",
                 navMission: "Our Mission",
                 navHelp: "How You Can Help",
+                navDonateLink: "Donate", // New translation key
                 navContact: "Contact Us",
                 navDonate: "Donate Now",
                 heroHeadings: [
@@ -490,9 +438,6 @@
                     "Hope Through Action, Change Through Care"
                 ],
                 heroParagraph: "Dedicated to providing education, healthcare, and a brighter future for underprivileged children.",
-                quote1: `"Every child deserves a chance to learn and grow."`, // Kept in translations for consistency, but not used in HTML
-                quote2: `"Joyful moments, brighter futures. Supporting play and happiness."`, // Kept in translations for consistency, but not used in HTML
-                quote3: `"Healthy children, healthy communities. Investing in their well-being."`, // Kept in translations for consistency, but not used in HTML
                 aboutHeading: "About Us",
                 aboutParagraph1: "Saksham Foundation was founded with a simple yet profound vision: to ensure every child, regardless of their background, has access to basic necessities and opportunities for a brighter future. We believe in nurturing young minds and providing a safe environment for them to grow and thrive.",
                 aboutParagraph2: "For over a decade, we have been working tirelessly in various communities, focusing on education, health, and overall well-being. Our programs are designed to address the root causes of poverty and empower children to break the cycle through sustainable interventions.",
@@ -528,6 +473,7 @@
                 navAbout: "आमच्याबद्दल",
                 navMission: "आमचं ध्येय",
                 navHelp: "तुम्ही कशी मदत करू शकता",
+                navDonateLink: "देणगी", // New translation key
                 navContact: "संपर्क साधा",
                 navDonate: "आता दान करा",
                 heroHeadings: [
@@ -536,9 +482,6 @@
                     "कृतीतून आशा, सेवेतून बदल"
                 ],
                 heroParagraph: "वंचित मुलांसाठी शिक्षण, आरोग्यसेवा आणि उज्ज्वल भविष्यासाठी समर्पित.",
-                quote1: `"प्रत्येक मुलाला शिकण्याची आणि वाढण्याची संधी मिळाली पाहिजे."`,
-                quote2: `"आनंदाचे क्षण, उज्ज्वल भविष्य. खेळ आणि आनंदाला पाठिंबा."`,
-                quote3: `"निरोगी मुले, निरोगी समुदाय. त्यांच्या कल्याणात गुंतवणूक."`,
                 aboutHeading: "आमच्याबद्दल",
                 aboutParagraph1: "सक्षम फाउंडेशनची स्थापना एका साध्या पण खोल दृष्टीने झाली: प्रत्येक मुलाला, त्यांच्या पार्श्वभूमीची पर्वा न करता, मूलभूत गरजा आणि उज्ज्वल भविष्यासाठी संधी मिळाव्यात याची खात्री करणे. आम्ही तरुण मनांचे संगोपन करण्यावर आणि त्यांना वाढण्यासाठी आणि भरभराटीसाठी सुरक्षित वातावरण प्रदान करण्यावर विश्वास ठेवतो.",
                 aboutParagraph2: "दहा वर्षांहून अधिक काळ, आम्ही विविध समुदायांमध्ये अथकपणे काम करत आहोत, शिक्षण, आरोग्य आणि एकूणच कल्याणावर लक्ष केंद्रित करत आहोत. आमचे कार्यक्रम गरिबीच्या मूळ कारणांवर लक्ष देण्यासाठी आणि शाश्वत हस्तक्षेपांद्वारे मुलांना चक्र तोडण्यासाठी सक्षम करण्यासाठी डिझाइन केलेले आहेत.",
@@ -574,6 +517,7 @@
                 navAbout: "हमारे बारे में",
                 navMission: "हमारा मिशन",
                 navHelp: "आप कैसे मदद कर सकते हैं",
+                navDonateLink: "दान करें", // New translation key
                 navContact: "हमसे संपर्क करें",
                 navDonate: "अभी दान करें",
                 heroHeadings: [
@@ -582,9 +526,6 @@
                     "कार्य से आशा, देखभाल से परिवर्तन"
                 ],
                 heroParagraph: "वंचित बच्चों के लिए शिक्षा, स्वास्थ्य सेवा और उज्ज्वल भविष्य प्रदान करने के लिए समर्पित।",
-                quote1: `"हर बच्चे को सीखने और बढ़ने का मौका मिलना चाहिए."`,
-                quote2: `"खुशी के पल, उज्ज्वल भविष्य। खेल और खुशी का समर्थन।"`,
-                quote3: `"स्वस्थ बच्चे, स्वस्थ समुदाय। उनके कल्याण में निवेश।"`,
                 aboutHeading: "हमारे बारे में",
                 aboutParagraph1: "सक्षम फाउंडेशन की स्थापना एक साधारण लेकिन गहरे दृष्टिकोण के साथ हुई थी: यह सुनिश्चित करना कि प्रत्येक बच्चे को, उनकी पृष्ठभूमि की परवाह किए बिना, बुनियादी आवश्यकताओं और उज्ज्वल भविष्यासाठी संधी मिळाव्यात याची खात्री करणे. आम्ही तरुण मनांचे संगोपन करण्यावर आणि त्यांना वाढण्यासाठी आणि भरभराटीसाठी सुरक्षित वातावरण प्रदान करण्यावर विश्वास ठेवतो.",
                 aboutParagraph2: "दहा वर्षांहून अधिक काळ, आम्ही विविध समुदायांमध्ये अथकपणे काम करत आहोत, शिक्षण, आरोग्य आणि एकूणच कल्याणावर लक्ष केंद्रित करत आहोत. आमचे कार्यक्रम गरिबीच्या मूळ कारणांवर लक्ष देण्यासाठी आणि शाश्वत हस्तक्षेपांद्वारे मुलांना चक्र तोडण्यासाठी सक्षम करण्यासाठी डिझाइन केलेले आहेत.",
@@ -596,7 +537,7 @@
                 missionHealthText: "यह सुनिश्चित करना कि बच्चों को स्वस्थ जीवन के लिए उचित पोषण, चिकित्सा देखभाल और स्वच्छता शिक्षा मिले।",
                 missionProtectionHeading: "बाल संरक्षण",
                 missionProtectionText: "मुलांना शोषण आणि गैरवर्तनापासून वाचवण्यासाठी सुरक्षित वातावरण निर्माण करणे आणि धोरणांची वकिली करणे.",
-                helpHeading: "आप कैसे मदद कर सकते हैं",
+                helpHeading: "आप कैसे मदद करू शकता",
                 helpDonateHeading: "दान करें",
                 helpDonateText: "आपका वित्तीय योगदान सीधे हमारे कार्यक्रमों का समर्थन करता है और जरूरतमंद बच्चों तक पहुंचता है।",
                 helpDonateButton: "दान करें",
@@ -605,7 +546,7 @@
                 helpVolunteerButton: "स्वयंसेवक",
                 helpShareHeading: "बात फैलाओ",
                 helpShareText: "सोशल मीडिया पर और अपने नेटवर्क के साथ हमारे मिशन को साझा करके अधिक लोगों तक पहुंचने में हमारी सहायता करें.",
-                helpShareButton: "शेयर करें",
+                helpShareButton: "शेअर करें",
                 contactHeading: "हमसे संपर्क करें",
                 contactNameLabel: "नाम:",
                 contactEmailLabel: "ईमेल:",
@@ -624,23 +565,20 @@
             document.getElementById('nav-about').textContent = translations[lang].navAbout;
             document.getElementById('nav-mission').textContent = translations[lang].navMission;
             document.getElementById('nav-help').textContent = translations[lang].navHelp;
+            document.getElementById('nav-donate-link').textContent = translations[lang].navDonateLink; // Update new donate link
             document.getElementById('nav-contact').textContent = translations[lang].navContact;
             document.getElementById('nav-donate').textContent = translations[lang].navDonate;
 
             document.getElementById('mobile-nav-about').textContent = translations[lang].navAbout;
             document.getElementById('mobile-nav-mission').textContent = translations[lang].navMission;
             document.getElementById('mobile-nav-help').textContent = translations[lang].navHelp;
+            document.getElementById('mobile-nav-donate-link').textContent = translations[lang].navDonateLink; // Update new donate link
             document.getElementById('mobile-nav-contact').textContent = translations[lang].navContact;
             document.getElementById('mobile-nav-donate').textContent = translations[lang].navDonate;
 
             // Hero Section
             document.getElementById('hero-heading').textContent = translations[lang].heroHeadings[slideIndex - 1];
             document.getElementById('hero-paragraph').textContent = translations[lang].heroParagraph;
-
-            // Update slide captions - REMOVED
-            // document.getElementById('quote-1').textContent = translations[lang].quote1;
-            // document.getElementById('quote-2').textContent = translations[lang].quote2;
-            // document.getElementById('quote-3').textContent = translations[lang].quote3;
 
             // About Us Section
             document.getElementById('about-heading').textContent = translations[lang].aboutHeading;
@@ -719,43 +657,28 @@
             let dots = document.getElementsByClassName("dot");
             let heroHeadingElement = document.getElementById("hero-heading");
             let heroParagraphElement = document.getElementById("hero-paragraph");
-            // let slideCaptions = document.getElementsByClassName("slide-caption"); // Get all slide captions - REMOVED
 
-            // Remove previous animation classes to re-trigger animations
+            // Remove previous animation classes to re-trigger animations for hero text
             heroHeadingElement.classList.remove('hero-text-fade-in');
             heroParagraphElement.classList.remove('hero-text-fade-in');
-            // for (i = 0; i < slideCaptions.length; i++) { // REMOVED
-            //     slideCaptions[i].classList.remove('quote-slide-up'); // REMOVED
-            // } // REMOVED
-
-            // Trigger reflow to ensure animations restart
-            void heroHeadingElement.offsetWidth;
-            void heroParagraphElement.offsetWidth;
-            // for (i = 0; i < slideCaptions.length; i++) { // REMOVED
-            //     void slideCaptions[i].offsetWidth; // REMOVED
-            // } // REMOVED
-
-            // Add animation classes
+            void heroHeadingElement.offsetWidth; // Trigger reflow
+            void heroParagraphElement.offsetWidth; // Trigger reflow
             heroHeadingElement.classList.add('hero-text-fade-in');
             heroParagraphElement.classList.add('hero-text-fade-in');
 
+            // Handle slide index wrapping
+            if (n > slides.length) { slideIndex = 1; }
+            if (n < 1) { slideIndex = slides.length; }
 
-            // Hide all slides and remove active class from dots
+            // Remove active-slide class and active dot from all
             for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
+                slides[i].classList.remove('active-slide');
                 dots[i].className = dots[i].className.replace(" active", "");
             }
 
-            // Display the current slide and add active class to its dot
-            slides[slideIndex-1].style.display = "block";
+            // Add active-slide class to the current slide and active dot
+            slides[slideIndex-1].classList.add('active-slide');
             dots[slideIndex-1].className += " active";
-
-            // Apply quote-specific animation to the active slide's caption - REMOVED
-            // if (slideCaptions[slideIndex - 1]) { // REMOVED
-            //     slideCaptions[slideIndex - 1].classList.add('quote-slide-up'); // REMOVED
-            // } // REMOVED
 
             // Update all content based on the current language and slide
             updateContent(localStorage.getItem('lang') || 'en');
