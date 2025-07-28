@@ -101,38 +101,17 @@
             margin: auto;
         }
 
-        /* Loader Styles */
-        #loader-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000; /* Ensure it's on top of everything */
-            transition: opacity 0.5s ease-out; /* Smooth fade out */
+        /* Animation for main hero text (h1, p) */
+        .hero-text-fade-in {
+            animation-name: heroTextFadeIn;
+            animation-duration: 1.5s; /* Duration for text fade-in */
+            animation-fill-mode: forwards; /* Keep the end state of the animation */
+            opacity: 0; /* Start invisible */
         }
 
-        .loader {
-            border: 8px solid #f3f3f3; /* Light grey */
-            border-top: 8px solid #3b82f6; /* Blue */
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .hidden-loader {
-            opacity: 0;
-            pointer-events: none; /* Make it unclickable when hidden */
+        @keyframes heroTextFadeIn {
+            from {opacity: 0; transform: translateY(20px);} /* Start slightly below and invisible */
+            to {opacity: 1; transform: translateY(0);} /* End visible and in place */
         }
 
         /* The dots/bullets/indicators */
@@ -158,26 +137,40 @@
             background-color: #717171;
         }
 
-        /* Animation for main hero text (h1, p) */
-        .hero-text-fade-in {
-            animation-name: heroTextFadeIn;
-            animation-duration: 1.5s; /* Duration for text fade-in */
-            animation-fill-mode: forwards; /* Keep the end state of the animation */
-            opacity: 0; /* Start invisible */
+        /* Footer specific styles */
+        .footer-link-heading {
+            font-weight: 600; /* Semi-bold */
+            margin-bottom: 1rem;
+            color: #cbd5e1; /* Light gray text for headings */
         }
-
-        @keyframes heroTextFadeIn {
-            from {opacity: 0; transform: translateY(20px);} /* Start slightly below and invisible */
-            to {opacity: 1; transform: translateY(0);} /* End visible and in place */
+        .footer-link-list a {
+            color: #94a3b8; /* Lighter gray for links */
+            transition: color 0.3s ease;
+        }
+        .footer-link-list a:hover {
+            color: #ffffff; /* White on hover */
+        }
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #475569; /* Darker gray for social icon background */
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        .social-icon:hover {
+            background-color: #64748b; /* Slightly lighter on hover */
+        }
+        .social-icon svg {
+            fill: #cbd5e1; /* Light gray for icon color */
+            width: 20px;
+            height: 20px;
         }
     </style>
 </head>
 <body class="antialiased">
-
-    <!-- Loader Overlay -->
-    <div id="loader-overlay">
-        <div class="loader"></div>
-    </div>
 
     <!-- Header/Navigation -->
     <header class="bg-white shadow-md py-4">
@@ -409,29 +402,128 @@
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p id="footer-text">&copy; 2025 Saksham Foundation. All rights reserved.</p>
-            <div class="flex justify-center space-x-4 mt-4">
-                <a href="#" class="text-gray-400 hover:text-white transition duration-300" id="footer-privacy">Privacy Policy</a>
-                <a href="#" class="text-gray-400 hover:text-white transition duration-300" id="footer-terms">Terms of Service</a>
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-sm">
+                <!-- Column 1: Accountability -->
+                <div>
+                    <h4 class="footer-link-heading" id="footer-accountability-heading">ACCOUNTABILITY</h4>
+                    <ul class="space-y-2 footer-link-list">
+                        <li><a href="#" class="hover:underline" id="footer-financial-info">Financial information</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-child-safeguarding">Child safeguarding</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-virtual-tour">Virtual tour</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-whistleblower-policy">Whistleblower policy</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-security-privacy">Security and privacy</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-terms-conditions">Terms and conditions</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-refund-cancellations">Refund & cancellations</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Important Links -->
+                <div>
+                    <h4 class="footer-link-heading" id="footer-important-links-heading">IMPORTANT LINKS</h4>
+                    <ul class="space-y-2 footer-link-list">
+                        <li><a href="#" class="hover:underline" id="footer-donor-portal">Donor portal</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-careers">Careers</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-faqs">FAQs</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-hermann-gmeiner-schools">Hermann Gmeiner Schools</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-and-institutions">And Institutions</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-vocational-training-centre">Vocational Training Centre</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div>
+                    <h4 class="footer-link-heading" id="footer-resources-heading">RESOURCES</h4>
+                    <ul class="space-y-2 footer-link-list">
+                        <li><a href="#" class="hover:underline" id="footer-annual-report">Annual report</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-blog">Blog</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-media">Media</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-sitemap">Sitemap</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Get Involved -->
+                <div>
+                    <h4 class="footer-link-heading" id="footer-get-involved-heading">GET INVOLVED</h4>
+                    <ul class="space-y-2 footer-link-list">
+                        <li><a href="#" class="hover:underline" id="footer-partnerships">Partnerships</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-philanthropy">Philanthropy</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-give-in-celebration">Give in celebration</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-school-programme">School programme</a></li>
+                        <li><a href="donate.html" class="hover:underline" id="footer-make-a-donation">Make a donation</a></li>
+                        <li><a href="#" class="hover:underline" id="footer-other-ways-to-give">Other ways to give</a></li>
+                        <li><a href="#contact" class="hover:underline" id="footer-contact-us">Contact us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 5: Saksham Foundation Contact Info -->
+                <div>
+                    <h4 class="footer-link-heading" id="footer-contact-info-heading">SAKSHAM FOUNDATION</h4>
+                    <address class="not-italic space-y-2 text-gray-400">
+                        <p class="flex items-start mb-2">
+                            <svg class="w-5 h-5 mr-2 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg>
+                            <span id="footer-address">123 Main Street, Anytown, State 12345, INDIA</span>
+                        </p>
+                        <p class="flex items-center mb-2">
+                            <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-10C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                            <a href="#" class="hover:underline" id="footer-location-map">View on Map</a>
+                        </p>
+                        <p class="flex items-center mb-2">
+                            <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.12-.74-.03-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.2c.28-.27.36-.66.24-1.01C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"></path></svg>
+                            <span id="footer-phone">+91 98765 43210</span>
+                        </p>
+                        <p class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                            <a href="mailto:info@sakshamfoundation.org" class="hover:underline" id="footer-email">info@sakshamfoundation.org</a>
+                        </p>
+                    </address>
+                    <div class="mt-6 flex space-x-4 justify-center md:justify-start">
+                        <!-- Social Media Icons (placeholders) -->
+                        <a href="#" class="social-icon" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14 13.5h2.5l1-4H14V6.5c0-1.5.5-2.5 2.5-2.5H18V0h-3.5C10.75 0 9 2.18 9 5.5V9H6v4.5h3V24h5v-10.5z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.37-.83.49-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.3 3.01 4.5c-.36.62-.56 1.35-.56 2.12 0 1.48.75 2.79 1.91 3.56-.7-.02-1.37-.21-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21-.36.1-.74.15-1.13.15-.28 0-.55-.03-.81-.08.55 1.71 2.14 2.95 4.02 2.98C13.06 18.32 10.7 19 8.17 19c-.42 0-.83-.02-1.23-.07 2.9 1.86 6.36 2.95 10.06 2.95 12.07 0 18.67-9.92 18.67-18.53 0-.28-.01-.56-.02-.84.96-.69 1.79-1.56 2.45-2.55z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M21.54 6.5c-.23-.85-.9-1.52-1.75-1.75C18.25 4 12 4 12 4s-6.25 0-7.79.75c-.85.23-1.52.9-1.75 1.75C2 7.75 2 12 2 12s0 4.25.75 5.79c.23.85.9 1.52 1.75 1.75C5.75 20 12 20 12 20s6.25 0 7.79-.75c.85-.23 1.52-.9 1.75-1.75C22 16.25 22 12 22 12s0-4.25-.75-5.5zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.564c0-1.303-.026-2.983-1.812-2.983-1.815 0-2.094 1.416-2.094 2.886v5.661H9.351V9h3.414v1.561h.045c.477-.9 1.637-1.854 3.37-1.854 3.601 0 4.267 2.37 4.267 5.46V20.452zM5.337 7.433a2.062 2.062 0 01-2.064-2.065c0-1.137.921-2.066 2.064-2.066 1.138 0 2.065.929 2.065 2.066 0 1.138-.927 2.065-2.065 2.065zm-.016 13.019H7.88V9H5.321v11.452h-.001z"/></svg>
+                        </a>
+                        <a href="#" class="social-icon" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07c1.32.06 2.166.286 2.903.576.666.262 1.228.618 1.77.1.542.482.91.954 1.392 1.77.482.542.828 1.104 1.09 1.77.29.737.516 1.583.576 2.903.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.06 1.32-.286 2.166-.576 2.903-.262.666-.618 1.228-1.09 1.77-.482.542-.954.91-1.77 1.392-.542.482-1.104.828-1.77 1.09-.737.29-1.583.516-2.903.576-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.32-.06-2.166-.286-2.903-.576-.666-.262-1.228-.618-1.77-1.09-.482-.542-.91-1.014-1.392-1.77-.482-.542-.828-1.104-1.09-1.77-.29-.737-.516-1.583-.576-2.903-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.06-1.32.286-2.166.576-2.903.262-.666.618-1.228 1.09-1.77.482-.542.954-.91 1.77-1.392.542-.482 1.104-.828 1.77-1.09.737-.29 1.583-.516 2.903-.576 1.266-.058 1.646-.07 4.85-.07zm0 2.88c-2.617 0-2.94.01-3.96.056-.98.045-1.504.208-1.85.344-.347.136-.67.32-.96.61-.29.29-.474.613-.61.96-.136.346-.299.87-.344 1.85-.046 1.02-.056 1.343-.056 3.96s.01 2.94.056 3.96c.045.98.208 1.504.344 1.85.136.347.32.67.61.96.29.29.613.474.96.61.346.136.87.299 1.85.344 1.02.046 1.343.056 3.96.056s2.94-.01 3.96-.056c.98-.045 1.504-.208 1.85-.344.347-.136.67-.32.96-.61.29-.29.474-.613.61-.96.136.346.299-.87.344-1.85.046-1.02.056-1.343.056-3.96s-.01-2.94-.056-3.96c-.045-.98-.208-1.504-.344-1.85-.136-.347-.32-.67-.61-.96-.29-.29-.613-.474-.96-.61-.346-.136-.87-.299-1.85-.344-1.02-.046-1.343-.056-3.96-.056zm0 3.746c2.345 0 4.254 1.909 4.254 4.254S14.345 16.443 12 16.443s-4.254-1.909-4.254-4.254S9.655 7.909 12 7.909zm0 2.88c-.75 0-1.36.61-1.36 1.36s.61 1.36 1.36 1.36 1.36-.61 1.36-1.36-.61-1.36-1.36-1.36zm6.406-7.058c-.568 0-1.03.462-1.03 1.03s.462 1.03 1.03 1.03 1.03-.462 1.03-1.03-.462-1.03-1.03-1.03z"/></svg>
+                        </a>
+                        <!-- Google Play Icon (placeholder) -->
+                        <a href="#" class="social-icon" aria-label="Google Play">
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3.26 1.3L12 6.5l8.74-5.2C20.45.9 19.98 0 19.29 0H4.71c-.69 0-1.16.9-.73 1.3zM21.74 7.2l-9.74 5.85-9.74-5.85C.9 6.8-.01 7.4.01 8.2l.01 10c0 .7.6 1.3 1.3 1.3h21.36c.7 0 1.3-.6 1.3-1.3V8.2c.02-.8-.89-1.4-1.75-1zM12 14.5l-8.74 5.2c-.43.26-.73.73-.73 1.3v.01c0 .7.6 1.3 1.3 1.3h16.89c.7 0 1.3-.6 1.3-1.3v-.01c0-.57-.3-.94-.73-1.3L12 14.5z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p id="footer-copyright">&copy; 2025 Saksham Foundation. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        let slideIndex = 1;
-        let slideInterval; // Variable to hold the interval ID
-
-        // Translations object
+        // Translations object (hardcoded in JavaScript)
         const translations = {
             en: {
                 siteTitle: "Saksham Foundation",
                 navAbout: "About Us",
                 navMission: "Our Mission",
                 navHelp: "How You Can Help",
-                navDonateLink: "Donate", // New translation key
+                navDonateLink: "Donate",
                 navContact: "Contact Us",
                 navDonate: "Donate Now",
+                mobileNavAbout: "About Us",
+                mobileNavMission: "Our Mission",
+                mobileNavHelp: "How You Can Help",
+                mobileNavDonateLink: "Donate",
+                mobileNavContact: "Contact Us",
+                mobileNavDonate: "Donate Now",
                 heroHeadings: [
                     "Empowering Futures, One Child at a Time",
                     "Nurturing Dreams, Building Tomorrow",
@@ -464,35 +556,75 @@
                 contactEmailLabel: "Email:",
                 contactMessageLabel: "Message:",
                 contactSendButton: "Send Message",
-                footerText: "&copy; 2025 Saksham Foundation. All rights reserved.",
-                footerPrivacy: "Privacy Policy",
-                footerTerms: "Terms of Service"
+                contactNamePlaceholder: "Your Name",
+                contactEmailPlaceholder: "your@example.com",
+                contactMessagePlaceholder: "Your message...",
+                footerAccountabilityHeading: "ACCOUNTABILITY",
+                footerFinancialInfo: "Financial information",
+                footerChildSafeguarding: "Child safeguarding",
+                footerVirtualTour: "Virtual tour",
+                footerWhistleblowerPolicy: "Whistleblower policy",
+                footerSecurityPrivacy: "Security and privacy",
+                footerTermsConditions: "Terms and conditions",
+                footerRefundCancellations: "Refund & cancellations",
+                footerImportantLinksHeading: "IMPORTANT LINKS",
+                footerDonorPortal: "Donor portal",
+                footerCareers: "Careers",
+                footerFaqs: "FAQs",
+                hermannGmeinerSchools: "Hermann Gmeiner Schools",
+                andInstitutions: "And Institutions",
+                vocationalTrainingCentre: "Vocational Training Centre",
+                footerResourcesHeading: "RESOURCES",
+                footerAnnualReport: "Annual report",
+                footerBlog: "Blog",
+                footerMedia: "Media",
+                footerSitemap: "Sitemap",
+                footerGetInvolvedHeading: "GET INVOLVED",
+                footerPartnerships: "Partnerships",
+                footerPhilanthropy: "Philanthropy",
+                footerGiveInCelebration: "Give in celebration",
+                schoolProgramme: "School programme",
+                makeADonation: "Make a donation",
+                otherWaysToGive: "Other ways to give",
+                footerContactUs: "Contact us",
+                footerContactInfoHeading: "SAKSHAM FOUNDATION",
+                footerAddress: "123 Main Street, Anytown, State 12345, INDIA",
+                footerLocationMap: "View on Map",
+                footerPhone: "+91 98765 43210",
+                footerEmail: "info@sakshamfoundation.org",
+                footerCopyright: "&copy; 2025 Saksham Foundation. All rights reserved."
             },
             mr: {
                 siteTitle: "सक्षम फाउंडेशन",
                 navAbout: "आमच्याबद्दल",
-                navMission: "आमचं ध्येय",
+                navMission: "आमचे ध्येय",
                 navHelp: "तुम्ही कशी मदत करू शकता",
-                navDonateLink: "देणगी", // New translation key
+                navDonateLink: "देणगी द्या",
                 navContact: "संपर्क साधा",
-                navDonate: "आता दान करा",
+                navDonate: "आता देणगी द्या",
+                mobileNavAbout: "आमच्याबद्दल",
+                mobileNavMission: "आमचे ध्येय",
+                mobileNavHelp: "तुम्ही कशी मदत करू शकता",
+                mobileNavDonateLink: "देणगी द्या",
+                mobileNavContact: "संपर्क साधा",
+                mobileNavDonate: "आता देणगी द्या",
                 heroHeadings: [
-                    "भविष्याला सशक्त करा, एका वेळी एका मुलाला",
-                    "स्वप्नांना जपा, उद्याची निर्मिती करा",
-                    "कृतीतून आशा, सेवेतून बदल"
+                    "भविष्याला सशक्त करणे, एका वेळी एक मूल",
+                    "स्वप्नांना जपणे, उद्याचे निर्माण करणे",
+                    "कृतीतून आशा, काळजीने बदल"
                 ],
-                heroParagraph: "वंचित मुलांसाठी शिक्षण, आरोग्यसेवा आणि उज्ज्वल भविष्यासाठी समर्पित.",
+                heroParagraph: "वंचित मुलांना शिक्षण, आरोग्य सेवा आणि उज्ज्वल भविष्यासाठी समर्पित.",
                 aboutHeading: "आमच्याबद्दल",
-                aboutParagraph1: "सक्षम फाउंडेशनची स्थापना एका साध्या पण खोल दृष्टीने झाली: प्रत्येक मुलाला, त्यांच्या पार्श्वभूमीची पर्वा न करता, मूलभूत गरजा आणि उज्ज्वल भविष्यासाठी संधी मिळाव्यात याची खात्री करणे. आम्ही तरुण मनांचे संगोपन करण्यावर आणि त्यांना वाढण्यासाठी आणि भरभराटीसाठी सुरक्षित वातावरण प्रदान करण्यावर विश्वास ठेवतो.",
-                aboutParagraph2: "दहा वर्षांहून अधिक काळ, आम्ही विविध समुदायांमध्ये अथकपणे काम करत आहोत, शिक्षण, आरोग्य आणि एकूणच कल्याणावर लक्ष केंद्रित करत आहोत. आमचे कार्यक्रम गरिबीच्या मूळ कारणांवर लक्ष देण्यासाठी आणि शाश्वत हस्तक्षेपांद्वारे मुलांना चक्र तोडण्यासाठी सक्षम करण्यासाठी डिझाइन केलेले आहेत.",
-                aboutParagraph3: "आम्ही उत्साही स्वयंसेवक, समर्पित कर्मचारी आणि उदार देणगीदारांची एक टीम आहोत जे एक समान ध्येय सामायिक करतात: असुरक्षित मुलांच्या जीवनात ठोस फरक घडवणे.",
-                missionHeading: "आमचं ध्येय",
+                aboutParagraph1: "सक्षम फाउंडेशनची स्थापना एका साध्या पण गहन दृष्टिकोनातून झाली: प्रत्येक मुलाला, त्यांच्या पार्श्वभूमीची पर्वा न करता, मूलभूत गरजा आणि उज्ज्वल भविष्यासाठी संधी मिळाव्यात. आम्ही तरुण मनांचे संगोपन करण्यात आणि त्यांना वाढण्यासाठी आणि भरभराटीसाठी सुरक्षित वातावरण प्रदान करण्यात विश्वास ठेवतो.",
+                aboutParagraph2: "दहा वर्षांहून अधिक काळ, आम्ही विविध समुदायांमध्ये अथकपणे काम करत आहोत, शिक्षण, आरोग्य आणि एकूणच कल्याणावर लक्ष केंद्रित करत आहोत. आमचे कार्यक्रम गरिबीच्या मूळ कारणांना संबोधित करण्यासाठी आणि शाश्वत हस्तक्षेपांद्वारे मुलांना चक्रातून बाहेर पडण्यासाठी सक्षम करण्यासाठी डिझाइन केलेले आहेत.",
+                aboutParagraph3: "आम्ही उत्साही स्वयंसेवकांचा, समर्पित कर्मचाऱ्यांचा आणि उदार देणगीदारांचा एक संघ आहोत जे एक समान ध्येय साध्य करण्यासाठी एकत्र काम करतात: असुरक्षित मुलांच्या जीवनात ठोस फरक घडवणे.",
+                missionHeading: "आमचे ध्येय",
                 missionEducationHeading: "शिक्षण",
-                missionEducationText: "बौद्धिक वाढीस चालना देण्यासाठी दर्जेदार शिक्षण, शालेय साहित्य आणि शिक्षण संसाधनांमध्ये प्रवेश प्रदान करणे.",
+                missionEducationText: "बौद्धिक वाढीसाठी दर्जेदार शिक्षण, शालेय साहित्य आणि शिक्षण संसाधनांपर्यंत पोहोच प्रदान करणे.",
                 missionHealthHeading: "आरोग्य आणि पोषण",
                 missionHealthText: "निरोगी जीवनासाठी मुलांना योग्य पोषण, वैद्यकीय सेवा आणि स्वच्छतेचे शिक्षण मिळेल याची खात्री करणे.",
                 missionProtectionHeading: "बाल संरक्षण",
-                missionProtectionText: "मुलांना शोषण आणि गैरवर्तनापासून वाचवण्यासाठी सुरक्षित वातावरण निर्माण करणे आणि धोरणांची वकिली करणे.",
+                missionProtectionText: "मुलांना शोषण आणि गैरवापरापासून वाचवण्यासाठी सुरक्षित वातावरण निर्माण करणे आणि धोरणांची वकिली करणे.",
                 helpHeading: "तुम्ही कशी मदत करू शकता",
                 helpDonateHeading: "देणगी द्या",
                 helpDonateText: "तुमचे आर्थिक योगदान थेट आमच्या कार्यक्रमांना मदत करते आणि गरजू मुलांपर्यंत पोहोचते.",
@@ -501,128 +633,249 @@
                 helpVolunteerText: "मुलांच्या जीवनावर थेट परिणाम करण्यासाठी तुमचा वेळ आणि कौशल्ये समर्पित करा.",
                 helpVolunteerButton: "स्वयंसेवक",
                 helpShareHeading: "प्रचार करा",
-                helpShareText: "आमचे ध्येय सोशल मीडियावर आणि तुमच्या नेटवर्कमध्ये सामायिक करून अधिक लोकांपर्यंत पोहोचण्यास मदत करा.",
+                helpShareText: "आमचे ध्येय सोशल मीडियावर आणि तुमच्या नेटवर्कमध्ये शेअर करून अधिक लोकांपर्यंत पोहोचण्यास मदत करा.",
                 helpShareButton: "शेअर करा",
                 contactHeading: "संपर्क साधा",
                 contactNameLabel: "नाव:",
                 contactEmailLabel: "ईमेल:",
                 contactMessageLabel: "संदेश:",
                 contactSendButton: "संदेश पाठवा",
-                footerText: "&copy; 2025 सक्षम फाउंडेशन. सर्व हक्क राखीव.",
-                footerPrivacy: "गोपनीयता धोरण",
-                footerTerms: "सेवा अटी"
+                contactNamePlaceholder: "तुमचे नाव",
+                contactEmailPlaceholder: "तुमचा@उदाहरण.कॉम",
+                contactMessagePlaceholder: "तुमचा संदेश...",
+                footerAccountabilityHeading: "उत्तरदायित्व",
+                footerFinancialInfo: "आर्थिक माहिती",
+                footerChildSafeguarding: "बाल संरक्षण",
+                footerVirtualTour: "व्हर्च्युअल टूर",
+                footerWhistleblowerPolicy: "व्हिसलब्लोअर धोरण",
+                footerSecurityPrivacy: "सुरक्षा आणि गोपनीयता",
+                footerTermsConditions: "अटी आणि शर्ती",
+                footerRefundCancellations: "परतावा आणि रद्द करणे",
+                footerImportantLinksHeading: "महत्वाचे दुवे",
+                footerDonorPortal: "देणगीदार पोर्टल",
+                footerCareers: "करिअर",
+                footerFaqs: "वारंवार विचारले जाणारे प्रश्न",
+                hermannGmeinerSchools: "हर्मन ग्मायनर शाळा",
+                andInstitutions: "आणि संस्था",
+                vocationalTrainingCentre: "व्यावसायिक प्रशिक्षण केंद्र",
+                footerResourcesHeading: "संसाधने",
+                footerAnnualReport: "वार्षिक अहवाल",
+                footerBlog: "ब्लॉग",
+                footerMedia: "मीडिया",
+                footerSitemap: "साइटमॅप",
+                footerGetInvolvedHeading: "सहभागी व्हा",
+                footerPartnerships: "भागीदारी",
+                footerPhilanthropy: "पररोपकार",
+                footerGiveInCelebration: "उत्सवात देणगी द्या",
+                schoolProgramme: "शाळा कार्यक्रम",
+                makeADonation: "देणगी द्या",
+                otherWaysToGive: "देणगी देण्याचे इतर मार्ग",
+                footerContactUs: "आमच्याशी संपर्क साधा",
+                footerContactInfoHeading: "सक्षम फाउंडेशन",
+                footerAddress: "123 मेन स्ट्रीट, अनिटाउन, राज्य 12345, भारत",
+                footerLocationMap: "नकाशावर पहा",
+                footerPhone: "+91 98765 43210",
+                footerEmail: "info@sakshamfoundation.org",
+                footerCopyright: "&copy; 2025 सक्षम फाउंडेशन. सर्व हक्क राखीव."
             },
             hi: {
                 siteTitle: "सक्षम फाउंडेशन",
                 navAbout: "हमारे बारे में",
                 navMission: "हमारा मिशन",
                 navHelp: "आप कैसे मदद कर सकते हैं",
-                navDonateLink: "दान करें", // New translation key
+                navDonateLink: "दान करें",
                 navContact: "हमसे संपर्क करें",
                 navDonate: "अभी दान करें",
+                mobileNavAbout: "हमारे बारे में",
+                mobileNavMission: "हमारा मिशन",
+                mobileNavHelp: "आप कैसे मदद कर सकते हैं",
+                mobileNavDonateLink: "दान करें",
+                mobileNavContact: "हमसे संपर्क करें",
+                mobileNavDonate: "अभी दान करें",
                 heroHeadings: [
                     "भविष्य को सशक्त बनाना, एक समय में एक बच्चा",
                     "सपनों का पोषण, कल का निर्माण",
-                    "कार्य से आशा, देखभाल से परिवर्तन"
+                    "कार्य के माध्यम से आशा, देखभाल के माध्यम से परिवर्तन"
                 ],
                 heroParagraph: "वंचित बच्चों के लिए शिक्षा, स्वास्थ्य सेवा और उज्ज्वल भविष्य प्रदान करने के लिए समर्पित।",
                 aboutHeading: "हमारे बारे में",
-                aboutParagraph1: "सक्षम फाउंडेशन की स्थापना एक साधारण लेकिन गहरे दृष्टिकोण के साथ हुई थी: यह सुनिश्चित करना कि प्रत्येक बच्चे को, उनकी पृष्ठभूमि की परवाह किए बिना, बुनियादी आवश्यकताओं और उज्ज्वल भविष्यासाठी संधी मिळाव्यात याची खात्री करणे. आम्ही तरुण मनांचे संगोपन करण्यावर आणि त्यांना वाढण्यासाठी आणि भरभराटीसाठी सुरक्षित वातावरण प्रदान करण्यावर विश्वास ठेवतो.",
-                aboutParagraph2: "दहा वर्षांहून अधिक काळ, आम्ही विविध समुदायांमध्ये अथकपणे काम करत आहोत, शिक्षण, आरोग्य आणि एकूणच कल्याणावर लक्ष केंद्रित करत आहोत. आमचे कार्यक्रम गरिबीच्या मूळ कारणांवर लक्ष देण्यासाठी आणि शाश्वत हस्तक्षेपांद्वारे मुलांना चक्र तोडण्यासाठी सक्षम करण्यासाठी डिझाइन केलेले आहेत.",
-                aboutParagraph3: "हम भावुक स्वयंसेवकों, समर्पित कर्मचारियों और उदार दात्यांची एक टीम आहोत जे एक समान ध्येय सामायिक करतात: कमजोर बच्चों के जीवन में एक ठोस बदलाव लाना।",
+                aboutParagraph1: "सक्षम फाउंडेशन की स्थापना एक सरल लेकिन गहरे दृष्टिकोण के साथ हुई थी: यह सुनिश्चित करना कि प्रत्येक बच्चे को, उनकी पृष्ठभूमि की परवाह किए बिना, बुनियादी आवश्यकताओं और उज्ज्वल भविष्य के अवसरों तक पहुंच प्राप्त हो। हम युवा मन का पोषण करने और उन्हें बढ़ने और पनपने के लिए एक सुरक्षित वातावरण प्रदान करने में विश्वास करते हैं।",
+                aboutParagraph2: "एक दशक से अधिक समय से, हम विभिन्न समुदायों में अथक रूप से काम कर रहे हैं, शिक्षा, स्वास्थ्य और समग्र कल्याण पर ध्यान केंद्रित कर रहे हैं। हमारे कार्यक्रम गरीबी के मूल कारणों को दूर करने और स्थायी हस्तक्षेपों के माध्यम से बच्चों को इस चक्र को तोड़ने के लिए सशक्त बनाने के लिए डिज़ाइन किए गए हैं।",
+                aboutParagraph3: "हम भावुक स्वयंसेवकों, समर्पित कर्मचारियों और उदार दाताओं की एक टीम हैं जो एक सामान्य लक्ष्य साझा करते हैं: कमजोर बच्चों के जीवन में एक ठोस बदलाव लाना।",
                 missionHeading: "हमारा मिशन",
                 missionEducationHeading: "शिक्षा",
                 missionEducationText: "बौद्धिक विकास को बढ़ावा देने के लिए गुणवत्तापूर्ण शिक्षा, स्कूल की आपूर्ति और सीखने के संसाधनों तक पहुंच प्रदान करना।",
                 missionHealthHeading: "स्वास्थ्य और पोषण",
                 missionHealthText: "यह सुनिश्चित करना कि बच्चों को स्वस्थ जीवन के लिए उचित पोषण, चिकित्सा देखभाल और स्वच्छता शिक्षा मिले।",
                 missionProtectionHeading: "बाल संरक्षण",
-                missionProtectionText: "मुलांना शोषण आणि गैरवर्तनापासून वाचवण्यासाठी सुरक्षित वातावरण निर्माण करणे आणि धोरणांची वकिली करणे.",
-                helpHeading: "आप कैसे मदद करू शकता",
+                missionProtectionText: "सुरक्षित वातावरण बनाना और बच्चों को शोषण और दुर्व्यवहार से बचाने वाली नीतियों की वकालत करना।",
+                helpHeading: "आप कैसे मदद कर सकते हैं",
                 helpDonateHeading: "दान करें",
                 helpDonateText: "आपका वित्तीय योगदान सीधे हमारे कार्यक्रमों का समर्थन करता है और जरूरतमंद बच्चों तक पहुंचता है।",
                 helpDonateButton: "दान करें",
                 helpVolunteerHeading: "स्वयंसेवक बनें",
                 helpVolunteerText: "बच्चों के जीवन को सीधे प्रभावित करने के लिए अपना समय और कौशल समर्पित करें।",
                 helpVolunteerButton: "स्वयंसेवक",
-                helpShareHeading: "बात फैलाओ",
-                helpShareText: "सोशल मीडिया पर और अपने नेटवर्क के साथ हमारे मिशन को साझा करके अधिक लोगों तक पहुंचने में हमारी सहायता करें.",
-                helpShareButton: "शेअर करें",
+                helpShareHeading: "प्रचार करें",
+                helpShareText: "सोशल मीडिया पर और अपने नेटवर्क के साथ हमारे मिशन को साझा करके अधिक लोगों तक पहुंचने में हमारी सहायता करें।",
+                helpShareButton: "शेयर करें",
                 contactHeading: "हमसे संपर्क करें",
                 contactNameLabel: "नाम:",
                 contactEmailLabel: "ईमेल:",
                 contactMessageLabel: "संदेश:",
                 contactSendButton: "संदेश भेजें",
-                footerText: "&copy; 2025 सक्षम फाउंडेशन। सर्वाधिकार सुरक्षित।",
-                footerPrivacy: "गोपनीयता नीति",
-                footerTerms: "सेवा की शर्तें"
+                contactNamePlaceholder: "आपका नाम",
+                contactEmailPlaceholder: "your@example.com",
+                contactMessagePlaceholder: "आपका संदेश...",
+                footerAccountabilityHeading: "जवाबदेही",
+                footerFinancialInfo: "वित्तीय जानकारी",
+                footerChildSafeguarding: "बाल सुरक्षा",
+                footerVirtualTour: "वर्चुअल टूर",
+                footerWhistleblowerPolicy: "व्हिसलब्लोअर नीति",
+                footerSecurityPrivacy: "सुरक्षा और गोपनीयता",
+                footerTermsConditions: "नियम और शर्तें",
+                footerRefundCancellations: "रिफंड और रद्दीकरण",
+                footerImportantLinksHeading: "महत्वपूर्ण लिंक",
+                footerDonorPortal: "दाता पोर्टल",
+                footerCareers: "करियर",
+                footerFaqs: "अक्सर पूछे जाने वाले प्रश्न",
+                hermannGmeinerSchools: "हर्मन ग्मायनर स्कूल",
+                andInstitutions: "और संस्थान",
+                vocationalTrainingCentre: "व्यावसायिक प्रशिक्षण केंद्र",
+                footerResourcesHeading: "संसाधन",
+                footerAnnualReport: "वार्षिक रिपोर्ट",
+                footerBlog: "ब्लॉग",
+                footerMedia: "मीडिया",
+                footerSitemap: "साइटमैप",
+                footerGetInvolvedHeading: "शामिल हों",
+                footerPartnerships: "भागीदारी",
+                footerPhilanthropy: "परोपकार",
+                footerGiveInCelebration: "उत्सव में दान करें",
+                schoolProgramme: "स्कूल कार्यक्रम",
+                makeADonation: "दान करें",
+                otherWaysToGive: "दान करने के अन्य तरीके",
+                footerContactUs: "हमसे संपर्क करें",
+                footerContactInfoHeading: "सक्षम फाउंडेशन",
+                footerAddress: "123 मेन स्ट्रीट, अनिटाउन, राज्य 12345, भारत",
+                footerLocationMap: "मानचित्र पर देखें",
+                footerPhone: "+91 98765 43210",
+                footerEmail: "info@sakshamfoundation.org",
+                footerCopyright: "&copy; 2025 सक्षम फाउंडेशन. सभी अधिकार सुरक्षित."
             }
         };
 
+        let slideIndex = 1;
+        let slideInterval; // Variable to hold the interval ID
+
         // Function to update all text content based on selected language
         function updateContent(lang) {
-            // Header
-            document.getElementById('site-title').textContent = translations[lang].siteTitle;
-            document.getElementById('nav-about').textContent = translations[lang].navAbout;
-            document.getElementById('nav-mission').textContent = translations[lang].navMission;
-            document.getElementById('nav-help').textContent = translations[lang].navHelp;
-            document.getElementById('nav-donate-link').textContent = translations[lang].navDonateLink; // Update new donate link
-            document.getElementById('nav-contact').textContent = translations[lang].navContact;
-            document.getElementById('nav-donate').textContent = translations[lang].navDonate;
+            const currentTranslations = translations[lang];
+            if (!currentTranslations) {
+                console.warn(`Translations for language '${lang}' not found. Falling back to English.`);
+                lang = 'en'; // Fallback to English
+                currentTranslations = translations[lang];
+            }
 
-            document.getElementById('mobile-nav-about').textContent = translations[lang].navAbout;
-            document.getElementById('mobile-nav-mission').textContent = translations[lang].navMission;
-            document.getElementById('mobile-nav-help').textContent = translations[lang].navHelp;
-            document.getElementById('mobile-nav-donate-link').textContent = translations[lang].navDonateLink; // Update new donate link
-            document.getElementById('mobile-nav-contact').textContent = translations[lang].navContact;
-            document.getElementById('mobile-nav-donate').textContent = translations[lang].navDonate;
+            // Header
+            document.getElementById('site-title').textContent = currentTranslations.siteTitle;
+            document.getElementById('nav-about').textContent = currentTranslations.navAbout;
+            document.getElementById('nav-mission').textContent = currentTranslations.navMission;
+            document.getElementById('nav-help').textContent = currentTranslations.navHelp;
+            document.getElementById('nav-donate-link').textContent = currentTranslations.navDonateLink;
+            document.getElementById('nav-contact').textContent = currentTranslations.navContact;
+            document.getElementById('nav-donate').textContent = currentTranslations.navDonate;
+
+            document.getElementById('mobile-nav-about').textContent = currentTranslations.mobileNavAbout;
+            document.getElementById('mobile-nav-mission').textContent = currentTranslations.mobileNavMission;
+            document.getElementById('mobile-nav-help').textContent = currentTranslations.mobileNavHelp;
+            document.getElementById('mobile-nav-donate-link').textContent = currentTranslations.mobileNavDonateLink;
+            document.getElementById('mobile-nav-contact').textContent = currentTranslations.mobileNavContact;
+            document.getElementById('mobile-nav-donate').textContent = currentTranslations.mobileNavDonate;
 
             // Hero Section
-            document.getElementById('hero-heading').textContent = translations[lang].heroHeadings[slideIndex - 1];
-            document.getElementById('hero-paragraph').textContent = translations[lang].heroParagraph;
+            // Ensure heroHeadings is an array before accessing
+            if (Array.isArray(currentTranslations.heroHeadings) && currentTranslations.heroHeadings.length >= slideIndex) {
+                document.getElementById('hero-heading').textContent = currentTranslations.heroHeadings[slideIndex - 1];
+            } else {
+                console.warn("heroHeadings is not an array or does not have enough elements for current slideIndex.");
+                document.getElementById('hero-heading').textContent = "Welcome to Saksham Foundation"; // Fallback
+            }
+            document.getElementById('hero-paragraph').textContent = currentTranslations.heroParagraph;
 
             // About Us Section
-            document.getElementById('about-heading').textContent = translations[lang].aboutHeading;
-            document.getElementById('about-paragraph-1').textContent = translations[lang].aboutParagraph1;
-            document.getElementById('about-paragraph-2').textContent = translations[lang].aboutParagraph2;
-            document.getElementById('about-paragraph-3').textContent = translations[lang].aboutParagraph3;
+            document.getElementById('about-heading').textContent = currentTranslations.aboutHeading;
+            document.getElementById('about-paragraph-1').textContent = currentTranslations.aboutParagraph1;
+            document.getElementById('about-paragraph-2').textContent = currentTranslations.aboutParagraph2;
+            document.getElementById('about-paragraph-3').textContent = currentTranslations.aboutParagraph3;
 
             // Our Mission Section
-            document.getElementById('mission-heading').textContent = translations[lang].missionHeading;
-            document.getElementById('mission-education-heading').textContent = translations[lang].missionEducationHeading;
-            document.getElementById('mission-education-text').textContent = translations[lang].missionEducationText;
-            document.getElementById('mission-health-heading').textContent = translations[lang].missionHealthHeading;
-            document.getElementById('mission-health-text').textContent = translations[lang].missionHealthText;
-            document.getElementById('mission-protection-heading').textContent = translations[lang].missionProtectionHeading;
-            document.getElementById('mission-protection-text').textContent = translations[lang].missionProtectionText;
+            document.getElementById('mission-heading').textContent = currentTranslations.missionHeading;
+            document.getElementById('mission-education-heading').textContent = currentTranslations.missionEducationHeading;
+            document.getElementById('mission-education-text').textContent = currentTranslations.missionEducationText;
+            document.getElementById('mission-health-heading').textContent = currentTranslations.missionHealthHeading;
+            document.getElementById('mission-health-text').textContent = currentTranslations.missionHealthText;
+            document.getElementById('mission-protection-heading').textContent = currentTranslations.missionProtectionHeading;
+            document.getElementById('mission-protection-text').textContent = currentTranslations.missionProtectionText;
 
             // How You Can Help Section
-            document.getElementById('help-heading').textContent = translations[lang].helpHeading;
-            document.getElementById('help-donate-heading').textContent = translations[lang].helpDonateHeading;
-            document.getElementById('help-donate-text').textContent = translations[lang].helpDonateText;
-            document.getElementById('help-donate-button').textContent = translations[lang].helpDonateButton;
-            document.getElementById('help-volunteer-heading').textContent = translations[lang].helpVolunteerHeading;
-            document.getElementById('help-volunteer-text').textContent = translations[lang].helpVolunteerText;
-            document.getElementById('help-volunteer-button').textContent = translations[lang].helpVolunteerButton;
-            document.getElementById('help-share-heading').textContent = translations[lang].helpShareHeading;
-            document.getElementById('help-share-text').textContent = translations[lang].helpShareText;
-            document.getElementById('help-share-button').textContent = translations[lang].helpShareButton;
+            document.getElementById('help-heading').textContent = currentTranslations.helpHeading;
+            document.getElementById('help-donate-heading').textContent = currentTranslations.helpDonateHeading;
+            document.getElementById('help-donate-text').textContent = currentTranslations.helpDonateText;
+            document.getElementById('help-donate-button').textContent = currentTranslations.helpDonateButton;
+            document.getElementById('help-volunteer-heading').textContent = currentTranslations.helpVolunteerHeading;
+            document.getElementById('help-volunteer-text').textContent = currentTranslations.helpVolunteerText;
+            document.getElementById('help-volunteer-button').textContent = currentTranslations.helpVolunteerButton;
+            document.getElementById('help-share-heading').textContent = currentTranslations.helpShareHeading;
+            document.getElementById('help-share-text').textContent = currentTranslations.helpShareText;
+            document.getElementById('help-share-button').textContent = currentTranslations.helpShareButton;
 
             // Contact Us Section
-            document.getElementById('contact-heading').textContent = translations[lang].contactHeading;
-            document.getElementById('contact-name-label').textContent = translations[lang].contactNameLabel;
-            document.getElementById('contact-email-label').textContent = translations[lang].contactEmailLabel;
-            document.getElementById('contact-message-label').textContent = translations[lang].contactMessageLabel;
-            document.getElementById('contact-send-button').textContent = translations[lang].contactSendButton;
+            document.getElementById('contact-heading').textContent = currentTranslations.contactHeading;
+            document.getElementById('contact-name-label').textContent = currentTranslations.contactNameLabel;
+            document.getElementById('contact-email-label').textContent = currentTranslations.contactEmailLabel;
+            document.getElementById('contact-message-label').textContent = currentTranslations.contactMessageLabel;
+            document.getElementById('contact-send-button').textContent = currentTranslations.contactSendButton;
 
             // Footer
-            document.getElementById('footer-text').innerHTML = translations[lang].footerText; // Use innerHTML for copyright symbol
-            document.getElementById('footer-privacy').textContent = translations[lang].footerPrivacy;
-            document.getElementById('footer-terms').textContent = translations[lang].footerTerms;
+            document.getElementById('footer-accountability-heading').textContent = currentTranslations.footerAccountabilityHeading;
+            document.getElementById('footer-financial-info').textContent = currentTranslations.footerFinancialInfo;
+            document.getElementById('footer-child-safeguarding').textContent = currentTranslations.footerChildSafeguarding;
+            document.getElementById('footer-virtual-tour').textContent = currentTranslations.footerVirtualTour;
+            document.getElementById('footer-whistleblower-policy').textContent = currentTranslations.footerWhistleblowerPolicy;
+            document.getElementById('footer-security-privacy').textContent = currentTranslations.footerSecurityPrivacy;
+            document.getElementById('footer-terms-conditions').textContent = currentTranslations.footerTermsConditions;
+            document.getElementById('footer-refund-cancellations').textContent = currentTranslations.footerRefundCancellations;
+            document.getElementById('footer-important-links-heading').textContent = currentTranslations.footerImportantLinksHeading;
+            document.getElementById('footer-donor-portal').textContent = currentTranslations.footerDonorPortal;
+            document.getElementById('footer-careers').textContent = currentTranslations.footerCareers;
+            document.getElementById('footer-faqs').textContent = currentTranslations.footerFaqs;
+            document.getElementById('footer-hermann-gmeiner-schools').textContent = currentTranslations.hermannGmeinerSchools;
+            document.getElementById('footer-and-institutions').textContent = currentTranslations.andInstitutions;
+            document.getElementById('footer-vocational-training-centre').textContent = currentTranslations.vocationalTrainingCentre;
+            document.getElementById('footer-resources-heading').textContent = currentTranslations.footerResourcesHeading;
+            document.getElementById('footer-annual-report').textContent = currentTranslations.footerAnnualReport;
+            document.getElementById('footer-blog').textContent = currentTranslations.footerBlog;
+            document.getElementById('footer-media').textContent = currentTranslations.footerMedia;
+            document.getElementById('footer-sitemap').textContent = currentTranslations.footerSitemap;
+            document.getElementById('footer-get-involved-heading').textContent = currentTranslations.footerGetInvolvedHeading;
+            document.getElementById('footer-partnerships').textContent = currentTranslations.footerPartnerships;
+            document.getElementById('footer-philanthropy').textContent = currentTranslations.footerPhilanthropy;
+            document.getElementById('footer-give-in-celebration').textContent = currentTranslations.footerGiveInCelebration;
+            document.getElementById('footer-school-programme').textContent = currentTranslations.schoolProgramme;
+            document.getElementById('footer-make-a-donation').textContent = currentTranslations.makeADonation;
+            document.getElementById('footer-other-ways-to-give').textContent = currentTranslations.otherWaysToGive;
+            document.getElementById('footer-contact-us').textContent = currentTranslations.footerContactUs;
+            document.getElementById('footer-contact-info-heading').textContent = currentTranslations.footerContactInfoHeading;
+            document.getElementById('footer-address').textContent = currentTranslations.footerAddress;
+            document.getElementById('footer-location-map').textContent = currentTranslations.footerLocationMap;
+            document.getElementById('footer-phone').textContent = currentTranslations.footerPhone;
+            document.getElementById('footer-email').textContent = currentTranslations.footerEmail;
+            document.getElementById('footer-copyright').innerHTML = currentTranslations.footerCopyright;
 
             // Update placeholder texts
-            document.querySelector('#contact input[name="name"]').placeholder = (lang === 'en' ? 'Your Name' : (lang === 'mr' ? 'तुमचे नाव' : (lang === 'hi' ? 'आपका नाम' : 'Your Name')));
-            document.querySelector('#contact input[name="email"]').placeholder = (lang === 'en' ? 'your@example.com' : (lang === 'mr' ? 'तुमचा ईमेल' : (lang === 'hi' ? 'आपका ईमेल' : 'your@example.com')));
-            document.querySelector('#contact textarea[name="message"]').placeholder = (lang === 'en' ? 'Your message...' : (lang === 'mr' ? 'तुमचा संदेश...' : (lang === 'hi' ? 'आपका संदेश...' : 'Your message...')));
+            document.querySelector('#contact input[name="name"]').placeholder = currentTranslations.contactNamePlaceholder;
+            document.querySelector('#contact input[name="email"]').placeholder = currentTranslations.contactEmailPlaceholder;
+            document.querySelector('#contact textarea[name="message"]').placeholder = currentTranslations.contactMessagePlaceholder;
         }
 
         // Initial display of slides
@@ -720,18 +973,6 @@
         desktopLangSelector.value = initialLang;
         mobileLangSelector.value = initialLang;
         updateContent(initialLang); // Call updateContent on page load
-
-        // Hide loader when the page is fully loaded
-        window.addEventListener('load', () => {
-            const loaderOverlay = document.getElementById('loader-overlay');
-            if (loaderOverlay) {
-                loaderOverlay.classList.add('hidden-loader');
-                // Optional: Remove the loader from DOM after transition
-                loaderOverlay.addEventListener('transitionend', () => {
-                    loaderOverlay.style.display = 'none';
-                });
-            }
-        });
     </script>
 
 </body>
